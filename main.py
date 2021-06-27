@@ -1,38 +1,39 @@
-alphabet_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-def caeser(text, shift, direction):
-    new_list_shifted = alphabet_list[int(shift):]
-    for i in alphabet_list[:int(shift)]:
-        new_list_shifted.append(i)
+import random
 
-    if direction.lower() == 'encode':
-    #To encode!!
-        encrypted_word = ''
-        word = text.lower()
-        for i in word:
-            if i != ' ':
-                num = alphabet_list.index(i)
-                encrypted_word += new_list_shifted[num]
-            else:
-                encrypted_word += ' '
-        print(f"The Encoded message is --> {encrypted_word}")
+target_num = random.randint(1, 101)
 
-    elif direction.lower() == 'decode':
-    #To Decode!!
-        encrypted_word = ''
-        word = text.lower()
-        for i in word:
-            if i != ' ':
-                num = new_list_shifted.index(i)
-                encrypted_word += alphabet_list[num]
-            else:
-                encrypted_word += ' '
-        print(f"The Decoded message is --> {encrypted_word}")
+def run_guess(trial):
+    global target_num
+    while int(trial) != 0:
+        guess = int(input('Enter a number -->'))
+        if guess > target_num:
+            print('Guessed number is too high!!')
+            trial -=1
+            print(f'You have {trial} trials left!!')
+        elif guess < target_num:
+            print('Guessed number is too low!!')
+            trial -=1
+            print(f'You have {trial} trials left!!')
+        else:
+            print('You Guessed the correct number, You win 😀')
+            break
+    else:
+        print('You ran out of time, and didn\'t guess the correct number 😣')
 
-caeser('qnuux fxaum', 9, 'decode')
+def diff_level(level):
+    if level.lower() == 'easy':
+        trial = 10
+        run_guess(trial)
+    elif level.lower() == 'hard':
+        trial = 5
+        run_guess(trial)
+    else:
+        print('Invalid Input..')
+
+print(target_num) # This is to tell me what to guess towards as to keep track while coding..
+print('Welcome To Fredintek Guessing Game 😁')
+print('Guess a number between 1 and 100')
+level = input('Choose a difficulty level.. Type "Easy or Hard"\n-->').lower()
+diff_level(level)
 
 
-
-
-
-    
